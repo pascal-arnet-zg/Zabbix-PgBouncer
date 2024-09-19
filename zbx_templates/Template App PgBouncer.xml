@@ -510,8 +510,7 @@ Check pools metrics.</description>
                             <preprocessing>
                                 <step>
                                     <type>REGEX</type>
-                                    <params>{#PGBOUNCER_DATABASE}\s+\|\s+{#PGBOUNCER_USER}\s+\|\s+(\d+)
-\1</params>
+                                    <params>{#PGBOUNCER_DATABASE}\s*\|\s*{#PGBOUNCER_USER}\s*\|\s*(\d+)\s*\|\s*</params>
                                 </step>
                             </preprocessing>
                             <master_item>
@@ -534,8 +533,7 @@ Check pools metrics.</description>
                             <preprocessing>
                                 <step>
                                     <type>REGEX</type>
-                                    <params>{#PGBOUNCER_DATABASE}\s+\|\s+{#PGBOUNCER_USER}\s+\|\s+(\d+)\s+\|\s+(\d+)
-\2</params>
+                                    <params>{#PGBOUNCER_DATABASE}\s*\|\s*{#PGBOUNCER_USER}\s*\|\s*\d+\s*\|\s*(\d+)\s*\|\s*</params>
                                 </step>
                             </preprocessing>
                             <master_item>
@@ -560,8 +558,7 @@ Check pools metrics.</description>
                             <preprocessing>
                                 <step>
                                     <type>REGEX</type>
-                                    <params>{#PGBOUNCER_DATABASE}\s+\|\s+{#PGBOUNCER_USER}\s+\|\s+(\d+)\s+\|\s+(\d+)\s+\|\s+(\d+)\s+\|\s+(\d+)\s+\|\s+(\d+)\s+\|\s+(\d+)\s+\|\s+(\d+)\s+\|\s+(\d+)
-\8</params>
+                                    <params>{#PGBOUNCER_DATABASE}\s*\|\s*{#PGBOUNCER_USER}\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*(\d+(\.\d+)?)\s*\|\s*\d+\s*\|\s*\S+</params>
                                 </step>
                             </preprocessing>
                             <master_item>
@@ -596,8 +593,7 @@ Microsecond part of the maximum waiting time.</description>
                             <preprocessing>
                                 <step>
                                     <type>REGEX</type>
-                                    <params>{#PGBOUNCER_DATABASE}\s+\|\s+{#PGBOUNCER_USER}\s+\|\s+(\d+)\s+\|\s+(\d+)\s+\|\s+(\d+)\s+\|\s+(\d+)\s+\|\s+(\d+)\s+\|\s+(\d+)\s+\|\s+(\d+)\s+\|\s+(\d+)\s+\|\s+(\d+)
-\9</params>
+                                    <params>{#PGBOUNCER_DATABASE}\s*\|\s*{#PGBOUNCER_USER}\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*(\d+(\.\d+)?)\s*\|\s*</params>
                                 </step>
                             </preprocessing>
                             <master_item>
@@ -630,8 +626,7 @@ Microsecond part of the maximum waiting time.</description>
                             <preprocessing>
                                 <step>
                                     <type>REGEX</type>
-                                    <params>{#PGBOUNCER_DATABASE}\s+\|\s+{#PGBOUNCER_USER}.+\|\s+(\S+)
-\1</params>
+                                    <params>{#PGBOUNCER_DATABASE}\s*\|\s*{#PGBOUNCER_USER}\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+(\.\d+)?\s*\|\s*\d+(\.\d+)?\s*\|\s*(\S+)\s*</params>
                                 </step>
                             </preprocessing>
                             <master_item>
@@ -654,8 +649,7 @@ Microsecond part of the maximum waiting time.</description>
                             <preprocessing>
                                 <step>
                                     <type>REGEX</type>
-                                    <params>{#PGBOUNCER_DATABASE}\s+\|\s+{#PGBOUNCER_USER}\s+\|\s+(\d+)\s+\|\s+(\d+)\s+\|\s+(\d+)
-\3</params>
+                                    <params>{#PGBOUNCER_DATABASE}\s*\|\s*{#PGBOUNCER_USER}\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*(\d+)\s*\|\s*</params>
                                 </step>
                             </preprocessing>
                             <master_item>
@@ -678,8 +672,7 @@ Microsecond part of the maximum waiting time.</description>
                             <preprocessing>
                                 <step>
                                     <type>REGEX</type>
-                                    <params>{#PGBOUNCER_DATABASE}\s+\|\s+{#PGBOUNCER_USER}\s+\|\s+(\d+)\s+\|\s+(\d+)\s+\|\s+(\d+)\s+\|\s+(\d+)
-\4</params>
+                                    <params>{#PGBOUNCER_DATABASE}\s*\|\s*{#PGBOUNCER_USER}\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*(\d+)\s*\|\s*</params>
                                 </step>
                             </preprocessing>
                             <master_item>
@@ -702,8 +695,7 @@ Microsecond part of the maximum waiting time.</description>
                             <preprocessing>
                                 <step>
                                     <type>REGEX</type>
-                                    <params>{#PGBOUNCER_DATABASE}\s+\|\s+{#PGBOUNCER_USER}\s+\|\s+(\d+)\s+\|\s+(\d+)\s+\|\s+(\d+)\s+\|\s+(\d+)\s+\|\s+(\d+)\s+\|\s+(\d+)\s+\|\s+(\d+)
-\7</params>
+                                    <params>{#PGBOUNCER_DATABASE}\s*\|\s*{#PGBOUNCER_USER}\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*(\d+)\s*\|\s*</params>
                                 </step>
                             </preprocessing>
                             <master_item>
@@ -726,8 +718,7 @@ Microsecond part of the maximum waiting time.</description>
                             <preprocessing>
                                 <step>
                                     <type>REGEX</type>
-                                    <params>{#PGBOUNCER_DATABASE}\s+\|\s+{#PGBOUNCER_USER}\s+\|\s+(\d+)\s+\|\s+(\d+)\s+\|\s+(\d+)\s+\|\s+(\d+)\s+\|\s+(\d+)\s+\|\s+(\d+)
-\6</params>
+                                    <params>{#PGBOUNCER_DATABASE}\s*\|\s*{#PGBOUNCER_USER}\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*(\d+)\s*\|\s*</params>
                                 </step>
                             </preprocessing>
                             <master_item>
@@ -750,8 +741,7 @@ Microsecond part of the maximum waiting time.</description>
                             <preprocessing>
                                 <step>
                                     <type>REGEX</type>
-                                    <params>{#PGBOUNCER_DATABASE}\s+\|\s+{#PGBOUNCER_USER}\s+\|\s+(\d+)\s+\|\s+(\d+)\s+\|\s+(\d+)\s+\|\s+(\d+)\s+\|\s+(\d+)
-\5</params>
+                                    <params>{#PGBOUNCER_DATABASE}\s*\|\s*{#PGBOUNCER_USER}\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*(\d+)\s*\|\s*</params>
                                 </step>
                             </preprocessing>
                             <master_item>
