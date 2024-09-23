@@ -1,0 +1,879 @@
+zabbix_export:
+  version: '6.0'
+  date: '2024-09-19T08:59:24Z'
+  groups:
+      name: Templates
+  templates:
+      template: 'Template App PgBouncer'
+      name: 'Template App PgBouncer'
+      description: |
+        Check PgBouncer status and LLD pools.
+        Check pools metrics.
+      groups:
+        - name: Templates
+      items:
+          name: 'Total free client connections'
+          type: DEPENDENT
+          key: 'pgbouncer.lists[free_clients]'
+          delay: '0'
+          history: 30d
+          trends: 90d
+          description: 'Count of free clients.'
+          preprocessing:
+            - type: REGEX
+              parameters:
+                - 'free_clients\s+\|(.*)'
+                - \1
+          master_item:
+            key: pgbouncer.pool.lists
+          tags:
+            - tag: Application
+              value: PgBouncer
+          name: 'Total free server connections'
+          type: DEPENDENT
+          key: 'pgbouncer.lists[free_servers]'
+          delay: '0'
+          history: 30d
+          trends: 90d
+          description: 'Count of free servers.'
+          preprocessing:
+            - type: REGEX
+              parameters:
+                - 'free_servers\s+\|(.*)'
+                - \1
+          master_item:
+            key: pgbouncer.pool.lists
+          tags:
+            - tag: Application
+              value: PgBouncer
+          name: 'Total login client connections'
+          type: DEPENDENT
+          key: 'pgbouncer.lists[login_clients]'
+          delay: '0'
+          history: 30d
+          trends: 90d
+          preprocessing:
+            - type: REGEX
+              parameters:
+                - 'login_clients\s+\|(.*)'
+                - \1
+          master_item:
+            key: pgbouncer.pool.lists
+          tags:
+            - tag: Application
+              value: PgBouncer
+          name: 'Total pools'
+          type: DEPENDENT
+          key: 'pgbouncer.lists[pools]'
+          delay: '0'
+          history: 30d
+          trends: 90d
+          description: 'Count of pools.'
+          preprocessing:
+            - type: REGEX
+              parameters:
+                - 'pools\s+\|(.*)'
+                - \1
+          master_item:
+            key: pgbouncer.pool.lists
+          tags:
+            - tag: Application
+              value: PgBouncer
+          name: 'Total used client connections'
+          type: DEPENDENT
+          key: 'pgbouncer.lists[used_clients]'
+          delay: '0'
+          history: 30d
+          trends: 90d
+          description: 'Count of used clients.'
+          preprocessing:
+            - type: REGEX
+              parameters:
+                - 'used_clients\s+\|(.*)'
+                - \1
+          master_item:
+            key: pgbouncer.pool.lists
+          tags:
+            - tag: Application
+              value: PgBouncer
+          name: 'Total used server connections'
+          type: DEPENDENT
+          key: 'pgbouncer.lists[used_servers]'
+          delay: '0'
+          history: 30d
+          trends: 90d
+          description: 'Count of used servers.'
+          preprocessing:
+            - type: REGEX
+              parameters:
+                - 'used_servers\s+\|(.*)'
+                - \1
+          master_item:
+            key: pgbouncer.pool.lists
+          tags:
+            - tag: Application
+              value: PgBouncer
+          name: 'Total users'
+          type: DEPENDENT
+          key: 'pgbouncer.lists[users]'
+          delay: '0'
+          history: 30d
+          trends: 90d
+          description: 'Count of users.'
+          preprocessing:
+            - type: REGEX
+              parameters:
+                - 'users\s+\|(.*)'
+                - \1
+          master_item:
+            key: pgbouncer.pool.lists
+          tags:
+            - tag: Application
+              value: PgBouncer
+          name: 'PgBouncer lists raw'
+          key: pgbouncer.pool.lists
+          history: '0'
+          trends: '0'
+          value_type: TEXT
+          tags:
+            - tag: Application
+              value: PgBouncer
+          name: 'PgBouncer pools raw'
+          key: pgbouncer.pool.pools
+          history: '0'
+          trends: '0'
+          value_type: TEXT
+          tags:
+            - tag: Application
+              value: PgBouncer
+          name: 'PgBouncer stats raw'
+          key: pgbouncer.pool.stats
+          history: '0'
+          trends: '0'
+          value_type: TEXT
+          tags:
+            - tag: Application
+              value: PgBouncer
+          name: 'PgBouncer totals raw'
+          key: pgbouncer.pool.totals
+          history: '0'
+          trends: '0'
+          value_type: TEXT
+          tags:
+            - tag: Application
+              value: PgBouncer
+          name: 'Average number of SQL queries among all databases'
+          type: DEPENDENT
+          key: pgbouncer.total.avg_query_count
+          delay: '0'
+          history: 30d
+          trends: 90d
+          preprocessing:
+            - type: REGEX
+              parameters:
+                - ' avg_query_count\s+\|(.*)'
+                - \1
+          master_item:
+            key: pgbouncer.pool.totals
+          tags:
+            - tag: Application
+              value: PgBouncer
+          name: 'Average query duration duration among all databases'
+          type: DEPENDENT
+          key: pgbouncer.total.avg_query_time
+          delay: '0'
+          history: 30d
+          trends: 90d
+          value_type: FLOAT
+          units: ms
+          preprocessing:
+            - type: REGEX
+              parameters:
+                - ' avg_query_time\s+\|(.*)'
+                - \1
+            - type: MULTIPLIER
+              parameters:
+                - '0.001'
+          master_item:
+            key: pgbouncer.pool.totals
+          tags:
+            - tag: Application
+              value: PgBouncer
+          name: 'Time spent by clients waiting for a server among all databases (average per second)'
+          type: DEPENDENT
+          key: pgbouncer.total.avg_wait_time
+          delay: '0'
+          history: 30d
+          trends: 90d
+          value_type: FLOAT
+          units: ms
+          description: 'Time spent by clients waiting for a server, in miliseconds (average per second).'
+          preprocessing:
+            - type: REGEX
+              parameters:
+                - ' avg_wait_time\s+\|(.*)'
+                - \1
+            - type: MULTIPLIER
+              parameters:
+                - '0.001'
+          master_item:
+            key: pgbouncer.pool.totals
+          tags:
+            - tag: Application
+              value: PgBouncer
+          name: 'Average number of SQL transactions among all databases'
+          type: DEPENDENT
+          key: pgbouncer.total.avg_xact_count
+          delay: '0'
+          history: 30d
+          trends: 90d
+          preprocessing:
+            - type: REGEX
+              parameters:
+                - ' avg_xact_count\s+\|(.*)'
+                - \1
+          master_item:
+            key: pgbouncer.pool.totals
+          tags:
+            - tag: Application
+              value: PgBouncer
+          name: 'Average transaction duration among all databases'
+          type: DEPENDENT
+          key: pgbouncer.total.avg_xact_time
+          delay: '0'
+          history: 30d
+          trends: 90d
+          value_type: FLOAT
+          units: ms
+          description: 'Average transactions per second in last stat period.'
+          preprocessing:
+            - type: REGEX
+              parameters:
+                - ' avg_xact_time\s+\|(.*)'
+                - \1
+            - type: MULTIPLIER
+              parameters:
+                - '0.001'
+          master_item:
+            key: pgbouncer.pool.totals
+          tags:
+            - tag: Application
+              value: PgBouncer
+          name: 'Total received data from clients among all databases'
+          type: DEPENDENT
+          key: pgbouncer.total.total_client_bytes
+          delay: '0'
+          history: 30d
+          trends: 90d
+          units: Bps
+          preprocessing:
+            - type: REGEX
+              parameters:
+                - ' total_client_bytes\s+\|(.*)'
+                - \1
+            - type: CHANGE_PER_SECOND
+              parameters:
+                - ''
+          master_item:
+            key: pgbouncer.pool.totals
+          tags:
+            - tag: Application
+              value: PgBouncer
+          name: 'Number of SQL queries among all databases per sec'
+          type: DEPENDENT
+          key: pgbouncer.total.total_query_count
+          delay: '0'
+          history: 30d
+          trends: 90d
+          units: queries/s
+          preprocessing:
+            - type: REGEX
+              parameters:
+                - ' total_query_count\s+\|(.*)'
+                - \1
+            - type: CHANGE_PER_SECOND
+              parameters:
+                - ''
+          master_item:
+            key: pgbouncer.pool.totals
+          tags:
+            - tag: Application
+              value: PgBouncer
+          name: 'Total sent data to clients among all databases'
+          type: DEPENDENT
+          key: pgbouncer.total.total_server_bytes
+          delay: '0'
+          history: 30d
+          trends: 90d
+          units: Bps
+          preprocessing:
+            - type: REGEX
+              parameters:
+                - ' total_server_bytes\s+\|(.*)'
+                - \1
+            - type: CHANGE_PER_SECOND
+              parameters:
+                - ''
+          master_item:
+            key: pgbouncer.pool.totals
+          tags:
+            - tag: Application
+              value: PgBouncer
+          name: 'Number of SQL transactions among all databases per sec'
+          type: DEPENDENT
+          key: pgbouncer.total.total_xact_count
+          delay: '0'
+          history: 30d
+          trends: 90d
+          units: transactions/s
+          preprocessing:
+            - type: REGEX
+              parameters:
+                - ' total_xact_count\s+\|(.*)'
+                - \1
+            - type: CHANGE_PER_SECOND
+              parameters:
+                - ''
+          master_item:
+            key: pgbouncer.pool.totals
+          tags:
+            - tag: Application
+              value: PgBouncer
+      discovery_rules:
+          name: 'PgBouncer pools discovery'
+          key: pgbouncer.pool.discover
+          delay: 5m
+          lifetime: '0'
+          item_prototypes:
+              name: 'PgBouncer client {#PGBOUNCER_USER}: active connections'
+              type: DEPENDENT
+              key: 'pgbouncer.pools.cl_active[{#PGBOUNCER_DATABASE},{#PGBOUNCER_USER}]'
+              delay: '0'
+              history: 30d
+              trends: 90d
+              description: 'Client connections that are linked to server connection and can process queries.'
+              preprocessing:
+                - type: REGEX
+                  parameters:
+                    - '{#PGBOUNCER_DATABASE}\s*\|\s*{#PGBOUNCER_USER}\s*\|\s*(\d+)\s*\|\s*'
+                    - \1
+              master_item:
+                key: pgbouncer.pool.pools
+              tags:
+                - tag: Application
+                  value: 'PgBouncer: {#PGBOUNCER_DATABASE}'
+              name: 'PgBouncer client {#PGBOUNCER_USER}: active waiting'
+              type: DEPENDENT
+              key: 'pgbouncer.pools.cl_waiting[{#PGBOUNCER_DATABASE},{#PGBOUNCER_USER}]'
+              delay: '0'
+              history: 30d
+              trends: 90d
+              description: 'Client connections that have sent queries but have not yet got a server connection.'
+              preprocessing:
+                - type: REGEX
+                  parameters:
+                    - '{#PGBOUNCER_DATABASE}\s*\|\s*{#PGBOUNCER_USER}\s*\|\s*\d+\s*\|\s*(\d+)\s*\|\s*'
+                    - \1
+              master_item:
+                key: pgbouncer.pool.pools
+              tags:
+                - tag: Application
+                  value: 'PgBouncer: {#PGBOUNCER_DATABASE}'
+              name: 'PgBouncer client {#PGBOUNCER_USER}: maxwait'
+              type: DEPENDENT
+              key: 'pgbouncer.pools.maxwait[{#PGBOUNCER_DATABASE},{#PGBOUNCER_USER}]'
+              delay: '0'
+              history: 30d
+              trends: 90d
+              value_type: FLOAT
+              units: s
+              description: 'How long the first (oldest) client in the queue has waited, in seconds. If this starts increasing, then the current pool of servers does not handle requests quickly enough. The reason may be either an overloaded server or just too small of a pool_size setting.'
+              preprocessing:
+                - type: REGEX
+                  parameters:
+                    - '{#PGBOUNCER_DATABASE}\s*\|\s*{#PGBOUNCER_USER}\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*(\d+(\.\d+)?)\s*\|\s*'
+                    - \1
+              master_item:
+                key: pgbouncer.pool.pools
+              tags:
+                - tag: Application
+                  value: 'PgBouncer: {#PGBOUNCER_DATABASE}'
+              trigger_prototypes:
+                  expression: 'last(/Template App PgBouncer/pgbouncer.pools.maxwait[{#PGBOUNCER_DATABASE},{#PGBOUNCER_USER}])>1'
+                  name: 'PgBouncer client {#PGBOUNCER_USER}: maxwait  is more than 1 second'
+                  opdata: 'wait time:  {ITEM.LASTVALUE1}'
+                  priority: WARNING
+                  description: 'How long the first (oldest) client in the queue has waited, in seconds.'
+              name: 'PgBouncer client {#PGBOUNCER_USER}: maxwait micro seconds'
+              type: DEPENDENT
+              key: 'pgbouncer.pools.maxwait_us[{#PGBOUNCER_DATABASE},{#PGBOUNCER_USER}]'
+              delay: '0'
+              history: 30d
+              trends: 90d
+              value_type: FLOAT
+              units: micros
+              description: |
+                How long the first (oldest) client in the queue has waited, in seconds. If this starts increasing, then the current pool of servers does not handle requests quickly enough. The reason may be either an overloaded server or just too small of a pool_size setting.
+                Microsecond part of the maximum waiting time.
+              preprocessing:
+                - type: REGEX
+                  parameters:
+                    - '{#PGBOUNCER_DATABASE}\s*\|\s*{#PGBOUNCER_USER}\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*(\d+(\.\d+)?)\s*\|\s*'
+                    - \1
+              master_item:
+                key: pgbouncer.pool.pools
+              tags:
+                - tag: Application
+                  value: 'PgBouncer: {#PGBOUNCER_DATABASE}'
+              trigger_prototypes:
+                  expression: 'last(/Template App PgBouncer/pgbouncer.pools.maxwait_us[{#PGBOUNCER_DATABASE},{#PGBOUNCER_USER}])>100'
+                  name: 'PgBouncer client {#PGBOUNCER_USER}: maxwait  is more than 100 micro seconds'
+                  opdata: 'wait time:  {ITEM.LASTVALUE1}'
+                  priority: WARNING
+                  description: 'How long the first (oldest) client in the queue has waited, in seconds.'
+              name: 'PgBouncer client {#PGBOUNCER_USER}: pool mode'
+              type: DEPENDENT
+              key: 'pgbouncer.pools.pool_mode[{#PGBOUNCER_DATABASE},{#PGBOUNCER_USER}]'
+              delay: '0'
+              history: 30d
+              trends: '0'
+              value_type: CHAR
+              description: 'The pooling mode in use'
+              preprocessing:
+                - type: REGEX
+                  parameters:
+                    - '{#PGBOUNCER_DATABASE}\s*\|\s*{#PGBOUNCER_USER}\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*(\S+)\s*'
+                    - \1
+              master_item:
+                key: pgbouncer.pool.pools
+              tags:
+                - tag: Application
+                  value: 'PgBouncer: {#PGBOUNCER_DATABASE}'
+              name: 'PgBouncer server {#PGBOUNCER_USER}: active connections'
+              type: DEPENDENT
+              key: 'pgbouncer.pools.sv_active[{#PGBOUNCER_DATABASE},{#PGBOUNCER_USER}]'
+              delay: '0'
+              history: 30d
+              trends: 90d
+              description: 'Server connections that are linked to a client.'
+              preprocessing:
+                - type: REGEX
+                  parameters:
+                    - '{#PGBOUNCER_DATABASE}\s*\|\s*{#PGBOUNCER_USER}\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*(\d+)\s*\|\s*'
+                    - \1
+              master_item:
+                key: pgbouncer.pool.pools
+              tags:
+                - tag: Application
+                  value: 'PgBouncer: {#PGBOUNCER_DATABASE}'
+              name: 'PgBouncer server {#PGBOUNCER_USER}: unused connections'
+              type: DEPENDENT
+              key: 'pgbouncer.pools.sv_idle[{#PGBOUNCER_DATABASE},{#PGBOUNCER_USER}]'
+              delay: '0'
+              history: 30d
+              trends: 90d
+              description: 'Server connections that are unused and immediately usable for client queries.'
+              preprocessing:
+                - type: REGEX
+                  parameters:
+                    - '{#PGBOUNCER_DATABASE}\s*\|\s*{#PGBOUNCER_USER}\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*(\d+)\s*\|\s*'
+                    - \1
+              master_item:
+                key: pgbouncer.pool.pools
+              tags:
+                - tag: Application
+                  value: 'PgBouncer: {#PGBOUNCER_DATABASE}'
+              name: 'PgBouncer server {#PGBOUNCER_USER}: logging connections'
+              type: DEPENDENT
+              key: 'pgbouncer.pools.sv_login[{#PGBOUNCER_DATABASE},{#PGBOUNCER_USER}]'
+              delay: '0'
+              history: 30d
+              trends: 90d
+              description: 'Server connections currently in the process of logging in.'
+              preprocessing:
+                - type: REGEX
+                  parameters:
+                    - '{#PGBOUNCER_DATABASE}\s*\|\s*{#PGBOUNCER_USER}\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*(\d+)\s*\|\s*'
+                    - \1
+              master_item:
+                key: pgbouncer.pool.pools
+              tags:
+                - tag: Application
+                  value: 'PgBouncer: {#PGBOUNCER_DATABASE}'
+              name: 'PgBouncer server {#PGBOUNCER_USER}: tested connections'
+              type: DEPENDENT
+              key: 'pgbouncer.pools.sv_tested[{#PGBOUNCER_DATABASE},{#PGBOUNCER_USER}]'
+              delay: '0'
+              history: 30d
+              trends: 90d
+              description: 'Server connections that are currently running either server_reset_query or server_check_query.'
+              preprocessing:
+                - type: REGEX
+                  parameters:
+                    - '{#PGBOUNCER_DATABASE}\s*\|\s*{#PGBOUNCER_USER}\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*(\d+)\s*\|\s*'
+                    - \1
+              master_item:
+                key: pgbouncer.pool.pools
+              tags:
+                - tag: Application
+                  value: 'PgBouncer: {#PGBOUNCER_DATABASE}'
+              name: 'PgBouncer server {#PGBOUNCER_USER}: used connections'
+              type: DEPENDENT
+              key: 'pgbouncer.pools.sv_used[{#PGBOUNCER_DATABASE},{#PGBOUNCER_USER}]'
+              delay: '0'
+              history: 30d
+              trends: 90d
+              description: 'Server connections that have been idle for more than server_check_delay, so they need server_check_query to run on them before they can be used again.'
+              preprocessing:
+                - type: REGEX
+                  parameters:
+                    - '{#PGBOUNCER_DATABASE}\s*\|\s*{#PGBOUNCER_USER}\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*(\d+)\s*\|\s*'
+                    - \1
+              master_item:
+                key: pgbouncer.pool.pools
+              tags:
+                - tag: Application
+                  value: 'PgBouncer: {#PGBOUNCER_DATABASE}'
+              name: 'Average query duration'
+              type: DEPENDENT
+              key: 'pgbouncer.stats.avg_query_time[{#PGBOUNCER_DATABASE}]'
+              delay: '0'
+              history: 30d
+              trends: 90d
+              units: ms
+              description: 'Average query duration, in microseconds.'
+              preprocessing:
+                - type: REGEX
+                  parameters:
+                    - '{#PGBOUNCER_DATABASE}\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+(\d+)\s+'
+                    - \1
+                - type: CHANGE_PER_SECOND
+                  parameters:
+                    - ''
+              master_item:
+                key: pgbouncer.pool.stats
+              tags:
+                - tag: Application
+                  value: 'PgBouncer: {#PGBOUNCER_DATABASE}'
+              name: 'Average wait time'
+              type: DEPENDENT
+              key: 'pgbouncer.stats.avg_wait_time[{#PGBOUNCER_DATABASE}]'
+              delay: '0'
+              history: 30d
+              trends: 90d
+              units: ms
+              description: 'Time spent by clients waiting for a server, in microseconds (average per second).'
+              preprocessing:
+                - type: REGEX
+                  parameters:
+                    - '{#PGBOUNCER_DATABASE}\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+(\d+)\s+'
+                    - \1
+                - type: CHANGE_PER_SECOND
+                  parameters:
+                    - ''
+              master_item:
+                key: pgbouncer.pool.stats
+              tags:
+                - tag: Application
+                  value: 'PgBouncer: {#PGBOUNCER_DATABASE}'
+              trigger_prototypes:
+                  expression: 'last(/Template App PgBouncer/pgbouncer.stats.avg_wait_time[{#PGBOUNCER_DATABASE}])>{$PBBOUNCER.WAIT.TIME}'
+                  name: 'PgBouncer {#PGBOUNCER_DATABASE} wait time over {$PBBOUNCER.WAIT.TIME}ms'
+                  priority: AVERAGE
+                  description: 'Time spent by clients waiting for a server, in microseconds (average per second).'
+              name: 'Average transaction duration'
+              type: DEPENDENT
+              key: 'pgbouncer.stats.avg_xact_time[{#PGBOUNCER_DATABASE}]'
+              delay: '0'
+              history: 30d
+              trends: 90d
+              units: ms
+              description: 'Average transaction duration, in microseconds.'
+              preprocessing:
+                - type: REGEX
+                  parameters:
+                    - '{#PGBOUNCER_DATABASE}\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+(\d+)\s+'
+                    - \1
+                - type: CHANGE_PER_SECOND
+                  parameters:
+                    - ''
+              master_item:
+                key: pgbouncer.pool.stats
+              tags:
+                - tag: Application
+                  value: 'PgBouncer: {#PGBOUNCER_DATABASE}'
+              name: 'Number of SQL queries per sec'
+              type: DEPENDENT
+              key: 'pgbouncer.stats.total_query_count[{#PGBOUNCER_DATABASE}]'
+              delay: '0'
+              history: 30d
+              trends: 90d
+              units: queries/s
+              description: 'Number of SQL queries pooled by pgbouncer per sec.'
+              preprocessing:
+                - type: REGEX
+                  parameters:
+                    - '{#PGBOUNCER_DATABASE}\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+(\d+)\s+'
+                    - \1
+                - type: CHANGE_PER_SECOND
+                  parameters:
+                    - ''
+              master_item:
+                key: pgbouncer.pool.stats
+              tags:
+                - tag: Application
+                  value: 'PgBouncer: {#PGBOUNCER_DATABASE}'
+              name: 'Received data'
+              type: DEPENDENT
+              key: 'pgbouncer.stats.total_received[{#PGBOUNCER_DATABASE}]'
+              delay: '0'
+              history: 30d
+              trends: 90d
+              units: b/s
+              description: 'Network traffic received by pgbouncer in bytes.'
+              preprocessing:
+                - type: REGEX
+                  parameters:
+                    - '{#PGBOUNCER_DATABASE}\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+(\d+)\s+'
+                    - \1
+                - type: CHANGE_PER_SECOND
+                  parameters:
+                    - ''
+              master_item:
+                key: pgbouncer.pool.stats
+              tags:
+                - tag: Application
+                  value: 'PgBouncer: {#PGBOUNCER_DATABASE}'
+              name: 'Sent data'
+              type: DEPENDENT
+              key: 'pgbouncer.stats.total_sent[{#PGBOUNCER_DATABASE}]'
+              delay: '0'
+              history: 30d
+              trends: 90d
+              units: b/s
+              description: 'Network traffic sent by pgbouncer in bytes.'
+              preprocessing:
+                - type: REGEX
+                  parameters:
+                    - '{#PGBOUNCER_DATABASE}\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+(\d+)\s+'
+                    - \1
+                - type: CHANGE_PER_SECOND
+                  parameters:
+                    - ''
+              master_item:
+                key: pgbouncer.pool.stats
+              tags:
+                - tag: Application
+                  value: 'PgBouncer: {#PGBOUNCER_DATABASE}'
+              name: 'Number of SQL transactions per sec'
+              type: DEPENDENT
+              key: 'pgbouncer.stats.total_xact_count[{#PGBOUNCER_DATABASE}]'
+              delay: '0'
+              history: 30d
+              trends: 90d
+              units: transactions/s
+              description: 'Number of SQL transactions pooled by pgbouncer per sec.'
+              preprocessing:
+                - type: REGEX
+                  parameters:
+                    - '{#PGBOUNCER_DATABASE}\s+\|\s+\d+\s+\|\s+(\d+)\s+'
+                    - \1
+                - type: CHANGE_PER_SECOND
+                  parameters:
+                    - ''
+              master_item:
+                key: pgbouncer.pool.stats
+              tags:
+                - tag: Application
+                  value: 'PgBouncer: {#PGBOUNCER_DATABASE}'
+          graph_prototypes:
+              name: 'PgBouncer: Network traffic {#PGBOUNCER_DATABASE}'
+              graph_items:
+                - sortorder: '1'
+                  drawtype: GRADIENT_LINE
+                  color: 199C0D
+                  item:
+                    host: 'Template App PgBouncer'
+                    key: 'pgbouncer.stats.total_received[{#PGBOUNCER_DATABASE}]'
+                - sortorder: '2'
+                  drawtype: GRADIENT_LINE
+                  color: 0040FF
+                  item:
+                    host: 'Template App PgBouncer'
+                    key: 'pgbouncer.stats.total_sent[{#PGBOUNCER_DATABASE}]'
+              name: 'PgBouncer client {#PGBOUNCER_DATABASE}, {#PGBOUNCER_USER}: connections'
+              graph_items:
+                - color: 199C0D
+                  item:
+                    host: 'Template App PgBouncer'
+                    key: 'pgbouncer.pools.cl_active[{#PGBOUNCER_DATABASE},{#PGBOUNCER_USER}]'
+                - sortorder: '1'
+                  color: F63100
+                  item:
+                    host: 'Template App PgBouncer'
+                    key: 'pgbouncer.pools.cl_waiting[{#PGBOUNCER_DATABASE},{#PGBOUNCER_USER}]'
+              name: 'PgBouncer server {#PGBOUNCER_DATABASE}, {#PGBOUNCER_USER}: connections'
+              graph_items:
+                - color: 199C0D
+                  item:
+                    host: 'Template App PgBouncer'
+                    key: 'pgbouncer.pools.sv_active[{#PGBOUNCER_DATABASE},{#PGBOUNCER_USER}]'
+                - sortorder: '1'
+                  color: F63100
+                  item:
+                    host: 'Template App PgBouncer'
+                    key: 'pgbouncer.pools.sv_login[{#PGBOUNCER_DATABASE},{#PGBOUNCER_USER}]'
+                - sortorder: '2'
+                  color: 2774A4
+                  item:
+                    host: 'Template App PgBouncer'
+                    key: 'pgbouncer.pools.sv_tested[{#PGBOUNCER_DATABASE},{#PGBOUNCER_USER}]'
+                - sortorder: '3'
+                  color: F7941D
+                  item:
+                    host: 'Template App PgBouncer'
+                    key: 'pgbouncer.pools.sv_idle[{#PGBOUNCER_DATABASE},{#PGBOUNCER_USER}]'
+                - sortorder: '4'
+                  color: FC6EA3
+                  item:
+                    host: 'Template App PgBouncer'
+                    key: 'pgbouncer.pools.sv_used[{#PGBOUNCER_DATABASE},{#PGBOUNCER_USER}]'
+      macros:
+        - macro: '{$PBBOUNCER.WAIT.TIME}'
+          value: '2000'
+          description: 'Time spent by clients waiting for a server, in microseconds (average per second).'
+      dashboards:
+          name: 'PgBouncer overview'
+          pages:
+            - widgets:
+                - type: GRAPH_CLASSIC
+                  width: '12'
+                  height: '5'
+                  fields:
+                    - type: GRAPH
+                      name: graphid
+                      value:
+                        host: 'Template App PgBouncer'
+                        name: 'PgBouncer: connections'
+                    - type: INTEGER
+                      name: source_type
+                      value: '0'
+                - type: GRAPH_PROTOTYPE
+                  'y': '5'
+                  width: '12'
+                  height: '5'
+                  fields:
+                    - type: INTEGER
+                      name: columns
+                      value: '1'
+                    - type: GRAPH_PROTOTYPE
+                      name: graphid
+                      value:
+                        host: 'Template App PgBouncer'
+                        name: 'PgBouncer client {#PGBOUNCER_DATABASE}, {#PGBOUNCER_USER}: connections'
+                    - type: INTEGER
+                      name: rows
+                      value: '1'
+                    - type: INTEGER
+                      name: source_type
+                      value: '2'
+                - type: GRAPH_CLASSIC
+                  'y': '10'
+                  width: '12'
+                  height: '5'
+                  fields:
+                    - type: ITEM
+                      name: itemid
+                      value:
+                        host: 'Template App PgBouncer'
+                        key: pgbouncer.total.avg_query_count
+                    - type: INTEGER
+                      name: source_type
+                      value: '1'
+                - type: GRAPH_CLASSIC
+                  x: '12'
+                  width: '12'
+                  height: '5'
+                  fields:
+                    - type: GRAPH
+                      name: graphid
+                      value:
+                        host: 'Template App PgBouncer'
+                        name: 'PgBouncer: Total data flow among all databases'
+                    - type: INTEGER
+                      name: source_type
+                      value: '0'
+                - type: GRAPH_PROTOTYPE
+                  x: '12'
+                  'y': '5'
+                  width: '12'
+                  height: '5'
+                  fields:
+                    - type: INTEGER
+                      name: columns
+                      value: '1'
+                    - type: GRAPH_PROTOTYPE
+                      name: graphid
+                      value:
+                        host: 'Template App PgBouncer'
+                        name: 'PgBouncer server {#PGBOUNCER_DATABASE}, {#PGBOUNCER_USER}: connections'
+                    - type: INTEGER
+                      name: rows
+                      value: '1'
+                    - type: INTEGER
+                      name: source_type
+                      value: '2'
+                - type: GRAPH_CLASSIC
+                  x: '12'
+                  'y': '10'
+                  width: '12'
+                  height: '5'
+                  fields:
+                    - type: ITEM
+                      name: itemid
+                      value:
+                        host: 'Template App PgBouncer'
+                        key: pgbouncer.total.avg_query_time
+                    - type: INTEGER
+                      name: source_type
+                      value: '1'
+  graphs:
+      name: 'PgBouncer: connections'
+      graph_items:
+        - color: 199C0D
+          item:
+            host: 'Template App PgBouncer'
+            key: 'pgbouncer.lists[free_clients]'
+        - sortorder: '1'
+          color: F63100
+          item:
+            host: 'Template App PgBouncer'
+            key: 'pgbouncer.lists[free_servers]'
+        - sortorder: '2'
+          color: 2774A4
+          item:
+            host: 'Template App PgBouncer'
+            key: 'pgbouncer.lists[login_clients]'
+        - sortorder: '3'
+          color: F7941D
+          item:
+            host: 'Template App PgBouncer'
+            key: 'pgbouncer.lists[used_clients]'
+        - sortorder: '4'
+          color: FC6EA3
+          item:
+            host: 'Template App PgBouncer'
+            key: 'pgbouncer.lists[used_servers]'
+      name: 'PgBouncer: Total data flow among all databases'
+      graph_items:
+        - drawtype: FILLED_REGION
+          color: 00FF00
+          item:
+            host: 'Template App PgBouncer'
+            key: pgbouncer.total.total_client_bytes
+        - sortorder: '1'
+          drawtype: FILLED_REGION
+          color: 0040FF
+          item:
+            host: 'Template App PgBouncer'
+            key: pgbouncer.total.total_server_bytes
